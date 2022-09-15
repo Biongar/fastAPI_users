@@ -12,9 +12,8 @@ class UserModel(Base):
     
     username = Column(String, unique=True, nullable=False)
     password = Column(String, nullable=False)
-    is_active = Column(Boolean, default=True)
-    is_admin = Column(Boolean, default=False)
-    is_superuser = Column(Boolean, default=False)
-    date_created = Column(DateTime, default=datetime.utcnow())
-    date_updated = Column(DateTime, default=datetime.utcnow())
-    
+    is_active = Column(Boolean, default=True, nullable=False)
+    is_admin = Column(Boolean, default=False, nullable=False)
+    is_superuser = Column(Boolean, default=False, nullable=False)
+    date_created = Column(DateTime, default=datetime.utcnow(), nullable=False)
+    date_updated = Column(DateTime, default=datetime.utcnow(), nullable=False)
