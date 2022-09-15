@@ -1,0 +1,6 @@
+# Database settings
+
+NAME='name_db'
+HOST='localhost'
+USER='name_user'
+PASSWORD='password'
