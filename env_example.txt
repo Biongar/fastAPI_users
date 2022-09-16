@@ -1,3 +1,9 @@
+# Main settings
+
+SECRET_KEY='run openssl rand -hex 32'
+ALGORITHM='HS256'
+
+
 # Database settings
 
 NAME='name_db'

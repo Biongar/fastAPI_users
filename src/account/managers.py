@@ -23,7 +23,13 @@ class UserManager(BaseManager):
         user = await database.fetch_one(query)
         if not user:
             raise HTTPException(detail='Пользователь не найден.', status_code=status.HTTP_404_NOT_FOUND)
-        
+        return user
+
+    async def get_by_username(self, username):
+        query = users_table.select().where(users_table.c.username==username)
+        user = await database.fetch_one(query)
+        if not user:
+            raise HTTPException(detail='Пользователь не найден.', status_code=status.HTTP_404_NOT_FOUND)
         return user
     
     async def create(self, instance: CreateUserSchema):
