@@ -20,7 +20,7 @@ async def get_user(id: int, users: UserManager = Depends(get_user_manager), curr
         raise HTTPException(detail='Отказано в доступе.', status_code=status.HTTP_403_FORBIDDEN)
     
     user = await users.get_by_id(id)
-    if user.username != current_user.username:
+    if user.username != current_user.username and (not current_user.is_superuser or not current_user.is_admin):
         raise HTTPException(detail='Отказано в доступе.', status_code=status.HTTP_403_FORBIDDEN)
     
     return await users.get_by_id(id)
@@ -36,14 +36,14 @@ async def update_user(id: int,
                       current_user = Depends(get_current_user)):
     
     user = await users.get_by_id(id)
-    if user.username != current_user.username:
+    if user.username != current_user.username and (not current_user.is_superuser or not current_user.is_admin):
         raise HTTPException(detail='Отказано в доступе.', status_code=status.HTTP_403_FORBIDDEN)
     return await users.update(id, instance)
 
 @router.delete('/users/{id}')
 async def delete_user(id: int, users: UserManager = Depends(get_user_manager), current_user = Depends(get_current_user)):
     user = await users.get_by_id(id)
-    if user.username != current_user.username:
+    if user.username != current_user.username and (not current_user.is_superuser or not current_user.is_admin):
         raise HTTPException(detail='Отказано в доступе.', status_code=status.HTTP_403_FORBIDDEN)
     return await users.delete(id)
     
