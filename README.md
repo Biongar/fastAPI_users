@@ -25,3 +25,9 @@ touch .env
 alembic upgrade head
 python manage.py
 ```
+
+### Создание суперпользователя
+
+``` sh
+python createsuperuser.py
+```
