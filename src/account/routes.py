@@ -16,8 +16,6 @@ async def get_users(users: UserManager = Depends(get_user_manager), current_user
 
 @router.get('/users/{id}', response_model=ReadUserSchema)
 async def get_user(id: int, users: UserManager = Depends(get_user_manager), current_user = Depends(get_current_user)):
-    if not current_user.is_superuser or not current_user.is_admin:
-        raise HTTPException(detail='Отказано в доступе.', status_code=status.HTTP_403_FORBIDDEN)
     
     user = await users.get_by_id(id)
     if user.username != current_user.username and (not current_user.is_superuser or not current_user.is_admin):
